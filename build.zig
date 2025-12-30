@@ -18,7 +18,7 @@ pub fn build(b: *std.Build) void {
     };
 
     mod.addCSourceFiles(.{
-        .root = b.path("vendor/minhook/src"),
+        .root = b.path("minhook/src"),
         .files = &.{
             "buffer.c",
             "hook.c",
@@ -30,19 +30,19 @@ pub fn build(b: *std.Build) void {
     const cpu_arch = target.result.cpu.arch;
     if (cpu_arch == .x86_64) {
         mod.addCSourceFile(.{
-            .file = b.path("vendor/minhook/src/hde/hde64.c"),
+            .file = b.path("minhook/src/hde/hde64.c"),
             .flags = c_flags,
         });
     } else if (cpu_arch == .x86) {
         mod.addCSourceFile(.{
-            .file = b.path("vendor/minhook/src/hde/hde32.c"),
+            .file = b.path("minhook/src/hde/hde32.c"),
             .flags = c_flags,
         });
     }
 
-    mod.addIncludePath(b.path("vendor/minhook/include"));
-    mod.addIncludePath(b.path("vendor/minhook/src"));
-    mod.addIncludePath(b.path("vendor/minhook/src/hde"));
+    mod.addIncludePath(b.path("minhook/include"));
+    mod.addIncludePath(b.path("minhook/src"));
+    mod.addIncludePath(b.path("minhook/src/hde"));
 
     const static = b.addLibrary(.{
         .name = "minhook",
