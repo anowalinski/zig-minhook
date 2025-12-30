@@ -233,6 +233,11 @@ pub fn queueDisableAll() Error!void {
     return checkStatus(c.MH_QueueDisableHook(null));
 }
 
+/// Remove all created hooks in one go.
+pub fn removeAll() Error!void {
+    return checkStatus(c.MH_RemoveHook(null));
+}
+
 /// Applies all queued changes in one go.
 /// Use this with queueEnable/queueDisable for atomic hook state changes.
 pub fn applyQueued() Error!void {
