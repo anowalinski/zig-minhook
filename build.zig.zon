@@ -8,7 +8,7 @@
         "build.zig",
         "build.zig.zon",
         "src",
-        "vendor",
+        "minhook",
         "LICENSE",
         // "README.md",
     },
