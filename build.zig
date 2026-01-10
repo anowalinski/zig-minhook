@@ -4,6 +4,8 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const minhook_dep = b.dependency("minhook", .{});
+
     const mod = b.addModule("minhook", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
@@ -18,7 +20,7 @@ pub fn build(b: *std.Build) void {
     };
 
     mod.addCSourceFiles(.{
-        .root = b.path("minhook/src"),
+        .root = minhook_dep.path("src"),
         .files = &.{
             "buffer.c",
             "hook.c",
@@ -30,19 +32,19 @@ pub fn build(b: *std.Build) void {
     const cpu_arch = target.result.cpu.arch;
     if (cpu_arch == .x86_64) {
         mod.addCSourceFile(.{
-            .file = b.path("minhook/src/hde/hde64.c"),
+            .file = minhook_dep.path("src/hde/hde64.c"),
             .flags = c_flags,
         });
     } else if (cpu_arch == .x86) {
         mod.addCSourceFile(.{
-            .file = b.path("minhook/src/hde/hde32.c"),
+            .file = minhook_dep.path("src/hde/hde32.c"),
             .flags = c_flags,
         });
     }
 
-    mod.addIncludePath(b.path("minhook/include"));
-    mod.addIncludePath(b.path("minhook/src"));
-    mod.addIncludePath(b.path("minhook/src/hde"));
+    mod.addIncludePath(minhook_dep.path("include"));
+    mod.addIncludePath(minhook_dep.path("src"));
+    mod.addIncludePath(minhook_dep.path("src/hde"));
 
     const static = b.addLibrary(.{
         .name = "minhook",

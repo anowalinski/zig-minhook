@@ -3,12 +3,16 @@
     .version = "1.0.0",
     .fingerprint = 0x8878bff4aa39279c, // Changing this has security and trust implications.
     .minimum_zig_version = "0.15.1",
-    .dependencies = .{},
+    .dependencies = .{
+        .minhook = .{
+            .url = "git+https://github.com/TsudaKageyu/minhook#1e9ad1eb42db11bfcb65461f687c656612d1b555",
+            .hash = "N-V-__8AAJCXBAB-jadv8n11NCAQk33cGr7FMlf6WzgzrIiM",
+        },
+    },
     .paths = .{
         "build.zig",
         "build.zig.zon",
         "src",
-        "minhook",
         "LICENSE",
         // "README.md",
     },
